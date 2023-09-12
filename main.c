@@ -6,37 +6,32 @@
  */ 
 
 #include <avr/io.h>
-#define F_CPU 4915200UL
+
 #include <stdio.h>
-#include <util/delay.h>
 #include "UART.h"
+#include "SRAM.h"
+
+ 
 
 int main(void)
 {
-//      while (1) 
-//      {
-//  		PORTB |= (1 << PB0);
-//  		_delay_ms(500);
-//  		PORTB &= (0 << PB0);
-//  		_delay_ms(500);
-//      }
 	uart_init(MYUBRR);
+	SRAM_initialize();
+	uart_link_printf();
 	
-	int a = 1;
-	while (1){
-		
-		uart_link_printf();
-		
+	
+	while (1){	//The actual program, which will run forever
+		SRAM_test();
 		
 		
-		unsigned char received_data = uart_receive();
- 		printf("Received data: %c", received_data);
-		printf("\n");
 		
-		printf("Received data: %d", a);
-		printf("\n");
+
+// 		unsigned char received_data = uart_receive();
+//  		printf("Received data: %c", received_data);
+// 		printf("\n");
 		
-		
+		//output_testing();
+
 		 
 		//uart_send('h');
 		

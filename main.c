@@ -6,37 +6,55 @@
  */ 
 
 #include <avr/io.h>
-#define F_CPU 4915200UL
+
 #include <stdio.h>
-#include <util/delay.h>
 #include "UART.h"
+#include "SRAM.h"
+#include "ADC.h"
+
+ 
 
 int main(void)
 {
-//      while (1) 
-//      {
-//  		PORTB |= (1 << PB0);
-//  		_delay_ms(500);
-//  		PORTB &= (0 << PB0);
-//  		_delay_ms(500);
-//      }
-	uart_init(MYUBRR);
+	DDRB &= 0xFC;
 	
-	int a = 1;
-	while (1){
+	uart_init(MYUBRR);
+	SRAM_init();
+	ADC_init();
+	uart_link_printf();
+	
+	
+	while (1){	//The actual program, which will run forever
+		//SRAM_test();
 		
-		uart_link_printf();
+		volatile uint8_t ch_A = ADC_read(0);
+		volatile uint8_t ch_B = ADC_read(1);
+		volatile uint8_t ch_C = ADC_read(2);
+		volatile uint8_t ch_D = ADC_read(3);
 		
+		int x_percentage = ADC_scale_X(ch_B);		//
+		int y_percentage = ADC_scale_Y(ch_A);
+		int left_slider_percentage = ADC_scale_slider(ch_D);
+		int right_slider_percentage = ADC_scale_slider(ch_C);
+		enum pos_t joystick_direction = ADC_pos_read(x_percentage, y_percentage);
 		
+		int buttonA = (PINB & (1 << PB0)) >> PB0;
+		int buttonB = (PINB & (1 << PB1)) >> PB1;
+
+		printf("JoyVert: %d JoyHoriz: %d, SliderLeft: %d, SliderRight: %d \n\r", y_percentage, x_percentage, left_slider_percentage, right_slider_percentage);
+		print_direction(joystick_direction);
+		//printf("ButtonLeft: %i, ButtonRight; %i \r\n", buttonA, buttonB);
+
+		_delay_ms(500);
+
+
+
+// 		unsigned char received_data = uart_receive();
+//  		printf("Received data: %c", received_data);
+// 		printf("\n");
 		
-		unsigned char received_data = uart_receive();
- 		printf("Received data: %c", received_data);
-		printf("\n");
-		
-		printf("Received data: %d", a);
-		printf("\n");
-		
-		
+		//output_testing();
+
 		 
 		//uart_send('h');
 		

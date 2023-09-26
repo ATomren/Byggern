@@ -1,5 +1,5 @@
-#ifndef UART_H
-#define UART_H
+#ifndef UART_H_
+#define UART_H_
 
 #include <avr/io.h>
 
@@ -14,4 +14,4 @@ unsigned char uart_receive(void);
 void uart_link_printf(void);
 
 
-#endif //UART_H
+#endif //UART_H_

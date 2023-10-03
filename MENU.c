@@ -21,7 +21,7 @@ void MENU_vertical_navigator(enum CursorState* cursor_state, int* current_line){
 					oled_print('>');
 				}break;
 			case DOWN:
-				if(*current_line <7){
+				if(*current_line < 6){
 					oled_clear_line(*current_line);
 					*current_line = *current_line+1;
 					oled_pos(*current_line,0);
@@ -72,18 +72,11 @@ void MENU_print(void){
 	oled_pos(6,10);
 	oled_print_str("Quit Game");
 	
-// 	for løkke
-// 		clear linje
-// 		if line = current line: print pil
-// 		print tekste for current pil
-// 		
-	
-	
 }
 
 
-void menu_click(){
-	if(PB2 er lav){
-		print(current line)
-	}
-}
+// void menu_click(){
+// 	if(PB2 er lav){
+// 		print(current line)
+//	}
+//}

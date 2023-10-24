@@ -11,7 +11,8 @@
 #include "uart.h"
 #include <stdio.h>
 #include "printf_stdarg.h"
-
+#include "ADC.h"
+#include "PWM_driver.h"
 
 
 
@@ -23,6 +24,8 @@ int main(void)
 	configure_uart();
 	
 	can_init_def_tx_rx_mb(CAN_BR_values);
+	ADC_init();
+	PWM_init();
 	
 	//PMC->PMC_PCR |= PMC_PCR_EN | PMC_PCR_DIV_PERIPH_DIV_MCK;
 	//PMC->PMC_PCER0 = PMC_PCER0_PID11;
@@ -34,30 +37,31 @@ int main(void)
 	
     /* Replace with your application code */
 	CAN_MESSAGE test_msg;
-	//test_msg.id = 22;
-	//test_msg.data_length = 8;
-	//test_msg.data[8];
-
+	
+	
+	int game_lives = 10;
+	int score_flags = 0;
+	
+	
+	
 	
 	while (1) {
 	
 	can_receive(&test_msg, 0);
 	if (test_msg.id == '$'){ //lesing av posisjon over CAN
-		printf("Message Data0: %x\r\n", test_msg.data[0]);
+		//printf("Message Data0: %x\r\n", test_msg.data[0]);
 	}else{
-		printf("Funkar inte");
+		printf("Funkar inte %c\r\n",' ');
 		}
-	/*
-	printf("Message ID: %c\r\n", test_msg.id);
-	printf("Message Data Length: %c\r\n", test_msg.data_length);
+
+	PWM_DC_from_joystick(test_msg.data[0]);
 	
-	printf("Message Data1: %x\r\n", test_msg.data[1]);
-	printf("Message Data2: %x\r\n", test_msg.data[2]);
-	printf("Message Data3: %x\r\n", test_msg.data[3]);
-	printf("Message Data4: %x\r\n", test_msg.data[4]);
-	printf("Message Data5: %x\r\n", test_msg.data[5]);
-	printf("Message Data6: %x\r\n", test_msg.data[6]);
-	printf("Message Data7: %x\r\n", test_msg.data[7]);*/
+	Game_Score_Keeper(&game_lives, &score_flags);
+	printf("Game Lives: %d \r\n", game_lives);
+	
+	
+	
+	printf("ADC VALUE: %u\r\n", ADC_read());
 	
 	printf("------------------%c\r\n", ' ');
 		

@@ -8,7 +8,8 @@
 #include "ADC.h"
 
 
-void ADC_init(void){
+void ADC_init(void){	
+	
 	//ADC->ADC_WPMR = 0x41444301;
 	
 	ADC->ADC_MR = ADC_MR_FREERUN;

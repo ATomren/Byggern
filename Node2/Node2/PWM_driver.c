@@ -22,8 +22,8 @@ void PWM_init(void){
 	PWM->PWM_CLK |= PWM_CLK_DIVA(1);	// No dividing	
 	PWM->PWM_CLK |= PWM_CLK_PREA(0);	// CLK = MCK
 	
-	PWM->PWM_CH_NUM[ch].PWM_CMR = PWM_CMR_CPRE_MCK_DIV_1024 | PWM_CMR_CPOL;
-	PWM->PWM_CH_NUM[ch].PWM_CPRD = CPRD; 
+	PWM->PWM_CH_NUM[CH].PWM_CMR = PWM_CMR_CPRE_MCK_DIV_1024 | PWM_CMR_CPOL;
+	PWM->PWM_CH_NUM[CH].PWM_CPRD = CPRD; 
 	//PWM->PWM_CH_NUM[ch].PWM_CPRDUPD = CPRD; 
 	
 	PWM_duty_cycle_update(122);
@@ -31,11 +31,11 @@ void PWM_init(void){
 
 void PWM_duty_cycle_update(int CDTYUPD){
 	if (CDTYUPD < (DC_Value_Min)){
-		PWM->PWM_CH_NUM[ch].PWM_CDTY = DC_Value_Min;
+		PWM->PWM_CH_NUM[CH].PWM_CDTY = DC_Value_Min;
 	}else if(CDTYUPD > DC_Value_Max){
-		PWM->PWM_CH_NUM[ch].PWM_CDTY = DC_Value_Max;
+		PWM->PWM_CH_NUM[CH].PWM_CDTY = DC_Value_Max;
 	}else{
-		PWM->PWM_CH_NUM[ch].PWM_CDTY = CDTYUPD;
+		PWM->PWM_CH_NUM[CH].PWM_CDTY = CDTYUPD;
 	}
 }
 
@@ -43,6 +43,4 @@ void PWM_DC_from_joystick(uint8_t x_percentage){
 	printf("X-PERCENTAGE: %u\r\n", x_percentage);
 	int CDTYUPD = (DC_Value_Min + ((x_percentage)*(DC_Value_Max-DC_Value_Min))/100);
 	PWM_duty_cycle_update(CDTYUPD);
-	printf("CDTYUPD: %u\r\n", CDTYUPD);
-
 }

@@ -19,7 +19,6 @@ void ADC_init(void){
 	ADC->ADC_CR = ADC_CR_START;
 	//ADC->ADC_CR = 0b10;
 
-	// ADC_COR??!! enable single ended mode
 }
 
 uint16_t ADC_read(void){

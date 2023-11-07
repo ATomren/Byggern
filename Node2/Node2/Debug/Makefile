@@ -51,7 +51,8 @@ C_SRCS +=  \
 ../printf_stdarg.c \
 ../PWM_driver.c \
 ../timer.c \
-../uart.c
+../uart.c \
+../Utilities.c
 
 
 PREPROCESSING_SRCS += 
@@ -74,7 +75,8 @@ POS_CTRL.o \
 printf_stdarg.o \
 PWM_driver.o \
 timer.o \
-uart.o
+uart.o \
+Utilities.o
 
 OBJS_AS_ARGS +=  \
 ADC.o \
@@ -90,7 +92,8 @@ POS_CTRL.o \
 printf_stdarg.o \
 PWM_driver.o \
 timer.o \
-uart.o
+uart.o \
+Utilities.o
 
 C_DEPS +=  \
 ADC.d \
@@ -106,7 +109,8 @@ POS_CTRL.d \
 printf_stdarg.d \
 PWM_driver.d \
 timer.d \
-uart.d
+uart.d \
+Utilities.d
 
 C_DEPS_AS_ARGS +=  \
 ADC.d \
@@ -122,7 +126,8 @@ POS_CTRL.d \
 printf_stdarg.d \
 PWM_driver.d \
 timer.d \
-uart.d
+uart.d \
+Utilities.d
 
 OUTPUT_FILE_PATH +=Node2.elf
 
@@ -234,6 +239,13 @@ Device_Startup/system_sam3xa.o: ../Device_Startup/system_sam3xa.c
 	
 
 ./uart.o: .././uart.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./Utilities.o: .././Utilities.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -31,7 +31,7 @@
 
 void MOTOR_init(void);
 
-void MOTOR_read_encoder(void);
+uint16_t MOTOR_read_encoder(void); //Return Encoder-value
 
 
 

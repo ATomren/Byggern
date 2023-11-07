@@ -8,10 +8,6 @@
 #include "game.h"
 
 
-
-
-
-
 void Game_Score_Keeper(int* game_score, int* score_flag){
 	if(*score_flag == 0){
 		if(ADC_read() < GOAL_TRESHOLD){
@@ -23,3 +19,4 @@ void Game_Score_Keeper(int* game_score, int* score_flag){
 		*score_flag = 0;
 	}
 }
+

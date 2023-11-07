@@ -26,5 +26,19 @@ void DAC_Init(void){
 
 
 void DAC_Control_Motor_Speed(uint16_t input){
-	DACC->DACC_CDR = input;	//Conversion Data Register, Data to convert
+	DACC->DACC_CDR = input;	//Conversion Data Register, Data to convert	
+}
+
+void DAC_Joystick_To_Motor_Speed(uint8_t js_percentage, uint16_t* current_speed){
+	uint8_t speed_delta = 100;
+	if((js_percentage >= 75) && (*current_speed < 3995)){
+		DACC->DACC_CDR = *current_speed + speed_delta;
+		*current_speed = *current_speed + speed_delta;
+	}
+	else if ((js_percentage <= 25) && (*current_speed >= 1600)){
+		DACC->DACC_CDR = *current_speed - speed_delta;
+		*current_speed = *current_speed - speed_delta;
+	}
+	
+	printf("SPEEED: %u \r\n", *current_speed);
 }

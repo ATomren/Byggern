@@ -234,6 +234,12 @@
     <Compile Include="uart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Utilities.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Utilities.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Device_Startup\" />

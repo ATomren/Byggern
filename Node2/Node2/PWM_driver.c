@@ -10,7 +10,6 @@
 
 void PWM_init(void){
 	PWM->PWM_ENA = PWM_ENA_CHID5;		// Enable PWM channel 5.
-	//PWM->PWM_ENA = PWM_ENA_CHID5;		// Enable PWM channel 5.
 	//PWM->PWM_WPCR = 0;				// Assures no write protection for PWM.
 	
 	PMC->PMC_PCER1 |= PMC_PCER1_PID36;	// Peripheral Clock Enable, 0 eller 1?
@@ -40,7 +39,6 @@ void PWM_duty_cycle_update(int CDTYUPD){
 }
 
 void PWM_DC_from_joystick(uint8_t x_percentage){
-	printf("X-PERCENTAGE: %u\r\n", x_percentage);
 	int CDTYUPD = (DC_Value_Min + ((x_percentage)*(DC_Value_Max-DC_Value_Min))/100);
 	PWM_duty_cycle_update(CDTYUPD);
 }

@@ -19,8 +19,8 @@ void Utilities_init(void){
 	PIOC->PIO_SODR = (1 << 17);
 }
 
-void Utilities_activate_solenoide(CAN_MESSAGE* msg){
-	if (msg->data[3] == 1){
+void Utilities_activate_solenoide(uint8_t button){
+	if (button == 1){
 		PIOC->PIO_CODR = (1 << 17);
 	}else{
 		PIOC->PIO_SODR = (1 << 17);

@@ -17,14 +17,14 @@
 //Global variables for timer
 #define TC_ch 0 
 #define MCK 84000000
-#define TC0_frequency 5
+#define TC0_frequency 6
 #define TC_RC_value MCK/(2*TC0_frequency)
 
 
 
 // Global variables for PI-Controller
-#define Kp 25.0
-#define Ki 5.0
+#define Kp 2
+#define Ki 1.5
 #define T 1.0/TC0_frequency
 
 // Functions

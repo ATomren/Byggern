@@ -27,15 +27,8 @@
 #define DO6 PIO_PC7
 #define DO7 PIO_PC8
 
-
-
 void MOTOR_init(void);
-
 uint16_t MOTOR_read_encoder(void); //Return Encoder-value
-
-
-
-
 
 
 #endif /* MOTOR_H_ */

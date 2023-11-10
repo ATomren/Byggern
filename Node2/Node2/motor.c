@@ -15,19 +15,21 @@ void MOTOR_init(void){
 	
 	PIOD->PIO_OER |= EN|NOT_RST|NOT_OE|SEL|DIR;	//Set as outputs
 	
-	PIOD->PIO_CODR = NOT_RST;
 	PIOD->PIO_SODR = EN|NOT_OE;	//NOT_OE for å ikke sample i utgangspunkt?
 	
-	//Kjør til en side for å kalibrere?
+	//Kalibrering, kjør motor til en side
 	PIOD->PIO_SODR = DIR;
 	DAC_Control_Motor_Speed(2500);
-	
-	_delay_ms(2500);
+	_delay_ms(2000);
 	DAC_Control_Motor_Speed(0);
 	
-	PIOD->PIO_SODR = NOT_RST;
 	
-	PIOC->PIO_ODR |= 0x1FE;	//PIN 1 til 8
+	PIOD->PIO_CODR = NOT_RST; //Reset enkoder
+	_delay_ms(50);
+	PIOD->PIO_SODR = NOT_RST; //Reset enkoder
+	
+	PIOC->PIO_ODR |= 0x1FE;	//PIN 1 til 8, pins for å lese fra enkoder
+	printf("motor init complete \n\r");
 }
 
 
@@ -51,6 +53,7 @@ uint16_t MOTOR_read_encoder(void){
 	PIOD->PIO_SODR = SEL;
 	
 	// 6: Wait approx. 20 microseconds
+
 	_delay_us(20);
 	
 	// 7: Read MJ2 to get low byte
@@ -59,7 +62,8 @@ uint16_t MOTOR_read_encoder(void){
 	// 8: Set !OE to hi
 	PIOD->PIO_SODR = NOT_OE;
 	
-	return (uint16_t)(encoder_high_byte << 8 | encoder_low_byte);
+	return (uint16_t)(encoder_high_byte << 8 | encoder_low_byte); //Sette sammen high og low byte til uint16
+	
 	//printf("WORD: %u \t HIGH: %u \t LOW: %u \r\n", encoder_value, encoder_high_byte, encoder_low_byte);
 }
 

@@ -14,7 +14,7 @@
 
 void Utilities_init(void);
 
-void Utilities_activate_solenoide(CAN_MESSAGE* msg);
+void Utilities_activate_solenoide(uint8_t button);
 
 
 #endif /* UTILITIES_H_ */
